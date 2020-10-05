@@ -1,7 +1,9 @@
 package com.bone.PerceptronV1;
 
+import java.security.cert.PolicyNode;
+
 public class Point2D implements Comparable<Point2D>{
-    public final double x, y;
+    public  double x, y;
 
 
     public Point2D(double x, double y) {
@@ -24,5 +26,22 @@ public class Point2D implements Comparable<Point2D>{
                 "x=" + x +
                 ", y=" + y +
                 '}';
+    }
+
+    public double getX() {
+        return mapX(x);
+    }
+
+    public double getY() {
+        return mapY(y);
+    }
+
+    public double mapX(double x)
+    {
+        return Point.map(x, -1,1,0 , Main.width);
+    }
+    public double mapY(double y)
+    {
+        return Point.map(y, -1,1, Main.height , 0);
     }
 }

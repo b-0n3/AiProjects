@@ -3,24 +3,30 @@ package com.bone.PerceptronV1;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
-public class Point extends Circle  {
+public class Point extends Circle {
     public Point2D position;
     public int targetResult;
-    public Point(double width , double height , Line line)
-    {
+    public int bias;
+
+    final static double EPSILON = 1e-12;
+
+
+    public Point( Line line) {
         position = new Point2D(
-                Math.random() * width,
-                Math.random() * height
+                random(-1,1) ,
+               random(-1,1)
         );
 
+
+        this.bias = 1;
         targetResult = getTargetResult(line);
         if (targetResult == 1)
             this.setFill(Color.web("#eeeeee"));
         else
             this.setFill(Color.web("#545454"));
 
-        this.setCenterX(position.x);
-        this.setCenterY(position.y);
+        this.setCenterX(position.getX());
+        this.setCenterY(position.getY());
         this.setStroke(Color.BLACK);
         this.setStrokeWidth(2);
         this.setRadius(7);
@@ -28,29 +34,36 @@ public class Point extends Circle  {
 
     private int getTargetResult(Line line) {
 
-       double a = line.m ;
-       double b =1;
-       double c = line.b;
-            if (isBelow(a,b,c , position.x, position.y))
-                return -1;
-            else
-                return 1;
+        double yLine = line.f(position.getX());
+
+        if (yLine > position.getY())
+            return 1;
+        else
+            return -1;
 
     }
-    boolean isBelow( double a, double b, double c, double x0, double y0 ){
-        double d = -c/b;
-        if( d == 0 ){
-            return -a / b * x0 > y0;
-        } else {
-            double h0 = a * x0 + b * y0 + c;
-            return d > 0 && (d > 0 == h0 > 0);
-        }
-    }
 
-    public void update(String color)
-    {
+
+    public void update(String color) {
         this.setFill(Color.web(color));
     }
 
 
+    public static double map(double valueCoord1,
+                             double startCoord1, double endCoord1,
+                             double startCoord2, double endCoord2) {
+
+        if (Math.abs(endCoord1 - startCoord1) < EPSILON) {
+            throw new ArithmeticException("/ 0");
+        }
+
+        double offset = startCoord2;
+        double ratio = (endCoord2 - startCoord2) / (endCoord1 - startCoord1);
+        return ratio * (valueCoord1 - startCoord1) + offset;
+    }
+
+    public  static double random(double x , double y)
+    {
+        return Point.map(Math.random(), 0,1,x,y);
+    }
 }
