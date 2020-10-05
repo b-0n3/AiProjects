@@ -4,6 +4,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -16,8 +17,8 @@ public class Main  extends Application {
     Pane pane;
     int epoch = 0;
     Line brainLine;
-   static double width = 700;
-    static double height = 400;
+   static double width = 1020;
+    static double height = 600;
     Perceptron brain= new Perceptron(2);
     public static void main(String []args){
 
@@ -43,8 +44,8 @@ public class Main  extends Application {
         Line line = new Line(point2DS);
 
         brainLine = new Line(point2DS);
-
-        IntStream.range(0,510).forEach(i-> pointlist.add(new Point(line )));
+        brainLine.setStroke(Color.PINK);
+        IntStream.range(0,6000).forEach(i-> pointlist.add(new Point(line )));
        pane = new Pane();
         pane.setStyle("-fx-background-color: #eeeeee" );
        pane.getChildren().addAll(pointlist );

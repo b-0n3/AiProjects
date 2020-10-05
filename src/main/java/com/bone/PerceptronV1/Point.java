@@ -16,6 +16,7 @@ public class Point extends Circle {
                 random(-1,1) ,
                random(-1,1)
         );
+//algorithm
 
 
         this.bias = 1;

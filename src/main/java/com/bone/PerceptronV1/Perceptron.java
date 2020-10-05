@@ -14,6 +14,7 @@ public class Perceptron {
             weights[i] = Point.random(-1,1);
             System.out.println(weights[i]);
         }
+
         }
     public double calculateWeightedSum(double[] inputs, double[] weights)
     {
