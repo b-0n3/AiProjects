@@ -51,8 +51,10 @@ public class Point extends Circle {
 
 
     public static double map(double valueCoord1,
-                             double startCoord1, double endCoord1,
-                             double startCoord2, double endCoord2) {
+                             double startCoord1,
+                             double endCoord1,
+                             double startCoord2,
+                             double endCoord2) {
 
         if (Math.abs(endCoord1 - startCoord1) < EPSILON) {
             throw new ArithmeticException("/ 0");
@@ -67,4 +69,5 @@ public class Point extends Circle {
     {
         return Point.map(Math.random(), 0,1,x,y);
     }
+
 }

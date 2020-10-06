@@ -1,5 +1,6 @@
 package com.bone.PerceptronV1;
 
+import com.bone.neuralnetwork.NeuralNetwork;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -32,6 +33,13 @@ public class Main  extends Application {
 
         pointlist = new ArrayList<>();
         Point2D [] point2DS = new Point2D[2];
+        NeuralNetwork test = new NeuralNetwork(2,3,1);
+        double [] inputs = {1,0};
+        double[] output = test.feedForward(inputs);
+        for (double v : output) {
+            System.out.println(v);
+
+        }
 
         IntStream.range(0,2).forEach(i->
         {
@@ -74,7 +82,8 @@ public class Main  extends Application {
     }
     public void loop()
     {
-        Point point = pointlist.get(index);
+
+        pointlist.forEach(point-> {
         double inputs[] = {point.position.x, point.position.y, point.bias};
         int guess = brain.train(inputs, point.targetResult);
 
@@ -83,9 +92,11 @@ public class Main  extends Application {
         else
             point.update("2c786c");
         index++;
-        if (index == pointlist.size())
-            epoch++;
-        index  = index % pointlist.size();
+
+
+
+        });
+        epoch++;
         updateBrainLine();
        // System.out.println(point.targetResult + "  guess " + guess);
     }
